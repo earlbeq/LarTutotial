@@ -27,6 +27,8 @@ Route::get("/employees", function(){
 		array("name" => "Eden", "age" => 15, "dept" => "Technical")
 	);
 
+	// $employees = array();
+
 
 	return view('employess')
 		->with('employees', $employees)

@@ -56,11 +56,61 @@
 @endwhile --}}
 
 {{-- Unless : binabaliktad ang condition --}}
-@unless ($age >= 18)
+{{-- @unless ($age >= 18)
 	You can't vote.
-@endunless
+@endunless --}}
+
+{{-- IsSet : to check if variable are set or have value --}}
+{{-- @isset($employees)
+	Employee is set!
+@endisset --}}
+
+{{-- Empty : to check if variable/array is empty --}}
+{{-- @empty($employees)
+	Employee is Empty!
+@endempty --}}
+
+{{-- The Loop Variable --}}
+@foreach($employees as $employees)
+	@if($loop->first)
+		This is the first iteration
+	@endif
+
+	@if($loop->last)
+		This is the last iteration.
+	@endif
+
+	<p>This is {{ $employees['name'] }} - {{ $loop->remaining }}</p>
+@endforeach
 
 
+{{-- for $loop->parent sample : for nested array --}}
+
+@foreach($employees as $employee)
+
+	@foreach($employees as $employee)
+		@if($loop->parent->last)
+			{{ $loop->parent->index }}<br>
+		@endif
+
+		
+	@endforeach
+
+@endforeach
+
+{{-- 
+
+$loop->index 			The index of the current loop iteration(starts at 0)
+$loop->iteration 		The current loop iteration(starts at 1)
+$loop->remaining		The iteration remaining in the loop
+$loop->count			The total number of items in the array being alterated
+$loop->first			Whether this is the first iteration through the loop
+$loop->last				Whether this is the last iteration through the loop
+$loop->depth			The nesting level of the current loop
+$loop->parent			When in a nested loop, the parent's loop variable
+
+
+ --}}
 
 </body>
 </html>
