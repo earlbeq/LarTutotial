@@ -36,4 +36,8 @@ Route::get("/employees", function(){
 		->with('age', $age);
 });
 
+Route::get("/home", function(){
+	return view('home');
+});
+
 
