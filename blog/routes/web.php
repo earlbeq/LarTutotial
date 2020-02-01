@@ -13,6 +13,22 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('down'); //for multiple middlwware use (['middlewarename1', 'middlewarename2'])
 
 Route::resource('blog','ArticlesController');
+
+Route::get('/testred/{message}', "RedirectSampleController@showMessage")->name("RedirectIndex");
+
+
+Route::get('/redirectme', function () {
+    // return redirect()->route('RedirectIndex', ['message' => 'This is my message']);
+
+    //to redirect user to action
+    return redirect()->action("RedirectSampleController@showSomething");
+});
+
+Route::get('/showsomething',"RedirectSampleController@showSomething");
+
+Route::get('/sample',"PagesController@index");
+
+Route::get('/maintenance', "PagesController@maintenance");

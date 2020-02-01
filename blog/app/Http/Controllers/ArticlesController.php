@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use Validator;
 
 class ArticlesController extends Controller
 {
@@ -20,9 +21,29 @@ class ArticlesController extends Controller
     	// $article->content = $request->input('content');
     	// $article->save();
 
+    	$validator = Validator::make($request->all(), 
+    	[
+    		"title" => "required|min:5|max:20|unique:articles",
+    		"content" => "required|min:5|max:200"
+    	]);
+
+
+    	if($validator->fails()) {
+    		// return redirect("/blog/create")->witherrors($validator)->withInput();
+    		return back()->witherrors($validator)->withInput();
+    	}
+    	// $request->validate([
+    	// 	"title" => "required|min:5|max:20|unique:articles",
+    	// 	"content" => "required|min:5|max:200"
+    	// ]);
+
+
+
     	Article::create(['title' => $request->title, 'content' => $request->content]);
 
-    	echo "Succesfully Added!";
+    	// echo "Succesfully Added!";
+
+    	return redirect("blog")->with('message',"Article Succesfully Added");
     }
 
     public function create(){

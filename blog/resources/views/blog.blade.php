@@ -17,6 +17,11 @@
 	</thead>
 
 	<h1>Articles</h1>
+
+	@if(session("message"))
+		<strong>{{ session('message') }}</strong><br><br>
+	@endif
+
 	<a href="/blog/create">Add New Article</a>
 	<tbody>
 		@foreach($articles as $article)
