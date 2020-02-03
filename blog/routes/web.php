@@ -11,9 +11,15 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
-})->middleware('down'); //for multiple middlwware use (['middlewarename1', 'middlewarename2'])
+});
+
+//Sample Middleware
+// Route::get('/', function () {
+//     return view('welcome');
+// })->middleware('down'); //for multiple middlwware use (['middlewarename1', 'middlewarename2'])
 
 Route::resource('blog','ArticlesController');
 
@@ -32,3 +38,10 @@ Route::get('/showsomething',"RedirectSampleController@showSomething");
 Route::get('/sample',"PagesController@index");
 
 Route::get('/maintenance', "PagesController@maintenance");
+
+Route::group(['middleware' => 'mymiddlewares'], function(){
+	Route::get('/sample',"PagesController@index");
+});
+
+Route::get("encrypt", "PagesController@encryptval");
+Route::get("decrypt", "PagesController@decryptval");
